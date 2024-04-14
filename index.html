@@ -168,17 +168,17 @@
             document.getElementById("total_deductions_div").classList.remove("red-border");
 
 
-            if(grossAnnualIncome==""){
+            if(grossAnnualIncome=="" || isNaN(grossAnnualIncome)){
                 document.getElementById("total_income_div").classList.remove("border");
                 document.getElementById("total_income_div").classList.add("red-border");
                 return false;
             }
-            if(extraIncome==""){
+            if(extraIncome=="" || isNaN(extraIncome)){
                 document.getElementById("extra_income_div").classList.remove("border");
                 document.getElementById("extra_income_div").classList.add("red-border");
                 return false;
             }
-            if(totalDeductions==""){
+            if(totalDeductions=="" || isNaN(totalDeductions)){
                 document.getElementById("total_deductions_div").classList.remove("border");
                 document.getElementById("total_deductions_div").classList.add("red-border");
                 return false;
