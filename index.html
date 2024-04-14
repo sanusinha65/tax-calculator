@@ -136,6 +136,9 @@
                                         </select>
                                     </div>
                                 </div>
+                                <div class="col-12 col-md-12 col-lg-12 col-xl-12">
+                                    <p id="required_error_message" style="display: none;">Note: All Fields are Mandatory <span class="text-danger">*</span></p>
+                                </div>
                                 <!-- Age Range Selector Ends  -->
                                 <!-- Submit Button -->
                                 <div class="col-12 col-md-12 col-lg-12 col-xl-12 col-sm-12 mt-3 mb-3">
@@ -180,21 +183,25 @@
             document.getElementById("extra_income_div").classList.remove("red-border");
             document.getElementById("total_deductions_div").classList.add("border");
             document.getElementById("total_deductions_div").classList.remove("red-border");
+            document.getElementById("required_error_message").style.display="none";
 
             // checking whether the field is empty or is a number or not
             if(grossAnnualIncome=="" || isNaN(grossAnnualIncome)){
                 document.getElementById("total_income_div").classList.remove("border");
                 document.getElementById("total_income_div").classList.add("red-border");
+                document.getElementById("required_error_message").style.display="block";
                 return false;
             }
             if(extraIncome=="" || isNaN(extraIncome)){
                 document.getElementById("extra_income_div").classList.remove("border");
                 document.getElementById("extra_income_div").classList.add("red-border");
+                document.getElementById("required_error_message").style.display="block";
                 return false;
             }
             if(totalDeductions=="" || isNaN(totalDeductions)){
                 document.getElementById("total_deductions_div").classList.remove("border");
                 document.getElementById("total_deductions_div").classList.add("red-border");
+                document.getElementById("required_error_message").style.display="block";
                 return false;
             }
 
