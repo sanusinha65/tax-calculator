@@ -53,6 +53,7 @@
             </div>
             <!-- About Tax Calculator Ends -->
             <br>
+            <!-- How Tax Calculator Works -->
             <div class="row">
                 <div class="col-12 col-md-12 col-lg-12 col-xl-12 col-sm-12 p-5 text-center" style="background: var(--primary-color);">
                     <div class="d-flex">
@@ -63,6 +64,7 @@
                     </div>
                 </div>
             </div>
+            <!-- How Tax Calculator Works Banner -->
             <!-- Tax Calculator Form -->
             <div class="d-flex" id="tax_calculator_form">
                 <div class="container pt-5">
@@ -72,6 +74,7 @@
                                 <div class="col-12 col-md-12 col-lg-12 col-xl-12 col-sm-12">
                                     <p class="h1 text-center">Tax Calculator</p>
                                 </div>
+                                <!-- Gross Income Input -->
                                 <div class="col-12 col-md-6 col-lg-6 col-xl-6 col-sm-6 mt-3 mb-3">
                                     <div class="form-group">
                                         <label for="total_income">Enter Gross Annual Income <i class="bi bi-info-circle-fill" data-toggle="tooltip" data-placement="right" title="It is your total salary in a year before any deductions"></i></label>
@@ -86,7 +89,9 @@
                                             </div>
                                         </div>
                                     </div>
+                                    <!-- Gross Income -->
                                 </div>
+                                <!-- Extra Income Input -->
                                 <div class="col-12 col-md-6 col-lg-6 col-xl-6 col-sm-6 mt-3 mb-3">
                                     <div class="form-group">
                                         <label for="extra_income">Enter Extra Income  <i class="bi bi-info-circle-fill" data-toggle="tooltip" data-placement="right" title="It is your extra income from different sources in a year before any deductions"></i></label>
@@ -101,7 +106,9 @@
                                             </div>
                                         </div>
                                     </div>
+                                    <!-- Extra Income Input Ends -->
                                 </div>
+                                <!-- Total Deduction Input -->
                                 <div class="col-12 col-md-6 col-lg-6 col-xl-6 col-sm-6 mt-3 mb-3">
                                     <div class="form-group">
                                         <label for="total_deductions">Enter Total Applicable Deductions  <i class="bi bi-info-circle-fill" data-toggle="tooltip" data-placement="right" title="It is your total deductions in a year"></i></label>
@@ -117,6 +124,8 @@
                                         </div>
                                     </div>
                                 </div>
+                                <!-- Total Deduction Input Ends -->
+                                <!-- Age Range Selector  -->
                                 <div class="col-12 col-md-6 col-lg-6 col-xl-6 col-sm-6 mt-3 mb-3">
                                     <div class="form-group">
                                         <label for="age_group">Select Age Group</label>
@@ -127,18 +136,21 @@
                                         </select>
                                     </div>
                                 </div>
+                                <!-- Age Range Selector Ends  -->
+                                <!-- Submit Button -->
                                 <div class="col-12 col-md-12 col-lg-12 col-xl-12 col-sm-12 mt-3 mb-3">
                                     <div class="form-group">
                                         <button type="button" class="btn btn-warning w-100 poppins-semibold text-uppercase fs18" onClick="calculateTax()">Calculate</button>
                                     </div>
                                 </div>
+                                <!-- Submit Button -->
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        
+        <!-- Modal To Show The Tax Result -->
         <div class="modal fade" id="taxAmountShowModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-lg modal-dialog-centered">
               <div class="modal-content pt-5">
@@ -151,15 +163,17 @@
               </div>
             </div>
           </div>
+        <!-- Modal To Show The Tax Result ENDS -->
         <!-- Tax Calculator Form Ends -->
     </div>
     <script>
         function calculateTax(){
+            // getting all the values from the form fields
             let grossAnnualIncome= document.getElementById("total_income").value;
             let extraIncome= document.getElementById("extra_income").value;
             let totalDeductions= document.getElementById("total_deductions").value;
             let ageGroup= document.getElementById("age_group").value;
-
+            // adding classes for resetting the border error message
             document.getElementById("total_income_div").classList.add("border");
             document.getElementById("total_income_div").classList.remove("red-border");
             document.getElementById("extra_income_div").classList.add("border");
@@ -167,7 +181,7 @@
             document.getElementById("total_deductions_div").classList.add("border");
             document.getElementById("total_deductions_div").classList.remove("red-border");
 
-
+            // checking whether the field is empty or is a number or not
             if(grossAnnualIncome=="" || isNaN(grossAnnualIncome)){
                 document.getElementById("total_income_div").classList.remove("border");
                 document.getElementById("total_income_div").classList.add("red-border");
@@ -184,9 +198,11 @@
                 return false;
             }
 
+            // declaring required variables 
             let nonTaxableAmount= 800000; // 8 lakh is not taxable
             let taxPercent= 0;
             let taxToBePaid=0;
+            // assigning percent on the basis of the tax percent
             if(ageGroup=="below_40"){
                 taxPercent=0.3; // 30% 
             }else if(ageGroup=="above_40_less_than_60"){
@@ -194,9 +210,11 @@
             }else{
                 taxPercent=0.1; // 10% 
             }
-
+            // calculating total income 
             let totalIncomeOfYear = parseFloat(grossAnnualIncome)+parseFloat(extraIncome)-parseFloat(totalDeductions);
+            // declaring modal for triggering it for the result 
             var modal = new bootstrap.Modal(document.getElementById('taxAmountShowModal'));
+            // if the amount is less than the nontaxable amount 
             if(totalIncomeOfYear<=nonTaxableAmount){
                 taxToBePaid= 0; 
                 document.getElementById("taxMessageToShow").innerHTML =  `
@@ -204,9 +222,10 @@
                     <p class="h3 pt-4 text-primary-color">Congratulations! <br/><span class="text-dark h3">You Don't Have To Pay Any Tax</span> </p>
                 </div>`;
                 modal.show();
-            }else{
+            }else{ // if the amount is not less than the nontaxable amount
                 let taxableAmount = totalIncomeOfYear-nonTaxableAmount; // 8 lakhs is nonTaxableAmount.
-                taxToBePaid= taxableAmount*taxPercent;
+                taxToBePaid= taxableAmount*taxPercent; // calculating the amount of tax to be paid.
+                // showing the result 
                 document.getElementById("taxMessageToShow").innerHTML = `
                 <div class="col-12 col-md-12 col-lg-12 col-xl-12">
                     <div class="row">
@@ -227,6 +246,7 @@
                         </div>
                     </div>
                 </div>`;
+                // triggering the modal 
                 modal.show();
             }
         }
@@ -234,16 +254,20 @@
         // for checking the input and showing the error message to the user on the input
         function validateInput(input) {
             let errorIdDiv= input.id+'_error';
+            // getting the element to trigger the tooltip
             let getTooltipElementDiv = document.getElementById(errorIdDiv);
+            // using the bootstrap tooltip to show the error message
             let getToolTipElement = bootstrap.Tooltip.getInstance(getTooltipElementDiv);
-
+            // checking the input field for number 
             if (/[^0-9]/.test(input.value)) {
+                // showing the error message
                 document.getElementById(errorIdDiv).style.display="inline-block";
                 if (!getToolTipElement) {
                     tooltip = new bootstrap.Tooltip(getTooltipElementDiv);
                 }
                 tooltip.show();
             } else {
+                // hiding the error message if no error
                 document.getElementById(errorIdDiv).style.display="none";
                 if (getToolTipElement) {
                     tooltip.hide();
